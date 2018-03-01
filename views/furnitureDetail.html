@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Furniture Detail</title>
+    <link rel="icon" href="/images/logo_url.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/logo_url.ico" type="image/x-icon">
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Poppins:400,600" rel="stylesheet">
+
+
+    <!-- favicon and touch icons -->
+    <link rel="shortcut icon" href="/images/favicon.png" >
+
+    <!-- Bootstrap -->
+    <link href="/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/plugins/slick/slick.css" rel="stylesheet">
+    <link href="/plugins/slick-nav/slicknav.css" rel="stylesheet">
+    <link href="/plugins/wow/animate.css" rel="stylesheet">
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/theme.css" rel="stylesheet">
+
+</head>
+<body class="">
+<div id="page-loader">
+    <div class="loaders">
+        <img src="/images/loader/3.gif" alt="First Loader">
+        <img src="/images/loader/4.gif" alt="First Loader">
+    </div>
+</div>
+
+<header id="site-header">
+    <% include header.html %>
+</header>
+
+<div id="property-single">
+       
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-7">
+                    <section class="property-meta-wrapper common" style="position:relative">
+                        <h3 class="entry-title"><%=data.name%></h3>
+                        <div id="main-slider" style="width:40%">
+                            <%data.img.split(",").forEach(function(imgurl) { %>
+                            <div class="slide"><img src="<%=imgurl.substr(6)%>" alt="Slide"></div>
+                            <%});%>
+                        </div>
+                        <div style="height:100px;height:100px;position:absolute;right:50px;top:250px;">
+                            <a class="btn btn-warning btn-lg btn-3d" data-hover="Add to Cart" role="button" style="float: right;width: 160px;margin-left:20px;" onclick="addToCart()">Add to Cart </a>
+                            <a class="btn btn-warning btn-lg btn-3d" data-hover="Buy funiture" href="/order" role="button" style="float: right;width: 160px;">Buy </a>
+                        </div>
+                        <div class="property-single-meta">
+                            <ul class="clearfix">
+                               <!--  <li><span>Property Size :</span> 2560 Sq Ft</li> -->
+                                <li><span>Email :</span> <%=data.email%></li>
+                                <li><span>Address :</span> <%=data.address%></li>
+                                <li><span>Garage Size :</span> Yes - 200 SqFt </li>
+                                <li><span>Year Built :</span> 2016-01-09</li>
+                                <li><span>Price :</span> $<%=data.price%></li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section class="property-contents common">
+                        <div class="entry-title clearfix">
+                            <h4 class="pull-left">Description </h4><!-- <a class="pull-right print-btn" href="javascript:window.print()">Print This Property <i class="fa fa-print"></i></a> -->
+                        </div>
+                        <p><%=data.description%></p>
+                    </section>
+                    <section class="property-single-features common clearfix">
+                        <h4 class="entry-title">Property Features</h4>
+                        <ul class="property-single-features-list clearfix">
+                            <li>Air Conditioning</li>
+                            <li>Cable TV</li>
+                            <li>Cot</li>
+                            <li class="disabled">Fan</li>
+                            <li>Lift</li>
+                            <li>Parking</li>
+                            <li>Separate Shower</li>
+                            <li>Office/den</li>
+                            <li class="disabled">Air Conditioning</li>
+                            <li>Cable TV</li>
+                            <li>Cot</li>
+                            <li>Fan</li>
+                            <li>Lift</li>
+                            <li class="disabled">Parking</li>
+                            <li>Cot</li>
+                            <li>Fan</li>
+                            <li>Lift</li>
+                            <li>Parking</li>
+                            <li>Separate Shower</li>
+                            <li class="disabled">Office/den</li>
+                            <li>Air Conditioning</li>
+                            <li>Cable TV</li>
+                        </ul>
+                    </section>
+                </div>
+                <div class="col-lg-4 col-md-5">
+                       
+                </div>
+            </div>
+        </div>
+</div>
+
+<footer id="footer">
+    <% include footer.html %>
+</footer>
+
+<a href="#top" id="scroll-top"><i class="fa fa-angle-up"></i></a>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script>
+    $(".logout").click(function() {      
+                 $.ajax({
+                     url:'/logout',
+                     type:'GET',
+                     success: function(data,status){
+                         if(status == 'success'){
+                             //$("#" + _id).val(tmp);
+                             location.href = '/';
+                         }
+                     },
+                     error: function(data,status){
+                         if(status == 'error'){
+                            alert("fail to logout");
+                         }
+                     }
+                 });
+    });
+    function addToCart() {
+        // var num = $("#num").val();
+            // var r=confirm('你确定添加'+num+'本书到购物车里吗?');
+            // if(r==true) {
+                
+                data = {
+                    action: "add",
+                    furnitureId: window.location.search.split("=")[1],
+                    num: 1
+                };
+                $.ajax({
+                 url:'/cart',
+                 type:'post',
+                 data: data,
+                 success: function(data,status){
+                 if(status == 'success'){
+                     alert('successfully add to cart');
+                 }
+                 },
+                 error: function(data,status){
+                     if(status == 'error'){
+                       alert('fail to add to cart');
+                     }
+                 }
+                 });
+            // }
+    };
+</script>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/jquery.migrate.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+<script src="/plugins/slick-nav/jquery.slicknav.min.js"></script>
+<script src="/plugins/slick/slick.min.js"></script>
+<script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- <script src="/plugins/tweetie/tweetie.js"></script>
+ --><script src="/plugins/forms/jquery.form.min.js"></script>
+<script src="/plugins/forms/jquery.validate.min.js"></script>
+<script src="/plugins/modernizr/modernizr.custom.js"></script>
+<script src="/plugins/wow/wow.min.js"></script>
+<script src="/plugins/zoom/zoom.js"></script>
+<script src="/plugins/mixitup/mixitup.min.js"></script>
+ <script src="/javascripts/theme.js"></script>
+</body>
+</html>

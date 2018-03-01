@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Cart</title>
+        <link rel="icon" href="/images/logo_url.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/images/logo_url.ico" type="image/x-icon">
+        <!-- Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Poppins:400,600" rel="stylesheet">
+
+
+        <!-- favicon and touch icons -->
+        <link rel="shortcut icon" href="/images/favicon.png" >
+
+        <!-- Bootstrap -->
+        <link href="/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/plugins/slick/slick.css" rel="stylesheet">
+        <link href="/plugins/slick-nav/slicknav.css" rel="stylesheet">
+        <link href="/plugins/wow/animate.css" rel="stylesheet">
+        <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+        <link href="/stylesheets/theme.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/responsive.css">
+
+    </head>
+    <body class="">
+        <div id="page-loader">
+            <div class="loaders">
+                <img src="/images/loader/3.gif" alt="First Loader">
+                <img src="/images/loader/4.gif" alt="First Loader">
+            </div>
+        </div>
+        <header id="site-header">
+            <% include header.html %>
+        </header>
+        <section class="flat-shop-cart" style="margin-bottom: 50px">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="flat-row-title style1">
+                            <h3>Shopping Cart</h3>
+                        </div>
+                        <div class="table-cart">
+                            <%if(data=="") {%>
+                            <div> The cart is empty</div>
+                            <%} else {%>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%data.forEach(function(furniture, index){%>
+                                    <tr>
+                                        <td>
+                                            <!-- <div class="img-product">
+                                                <img src="images/product/other/12.jpg" alt="">
+                                            </div> -->
+                                            <div class="name-product">
+                                                <%=furniture.name%>
+                                            </div>
+                                            <div class="price">
+                                                <%=furniture.price%>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </td>
+                                        <td>
+                                            <div class="quanlity">
+                                                <span data-id="<%-furniture._id%>" class="btn-down"></span>
+                                                <input id="<%=furniture._id%>" type="number" name="number" value="<%=furniture.num%>" min="1" max="100" placeholder="Quanlity" readonly="readonly">
+                                                <span data-id="<%-furniture._id%>" class="btn-up"></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="total">
+                                                $<%=furniture.num*furniture.price%>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <img class="delete" data-id="<%-furniture._id%>" src="/images/delete.png" alt="">
+                                        </td>
+                                    </tr>
+                                    <% });%>
+                                </tbody>
+                            </table>
+                            <%}%>
+                        </div><!-- /.table-cart -->
+                    </div><!-- /.col-lg-8 -->
+                    <div class="col-lg-4">
+                        <div class="cart-totals">
+                            <h3>Cart Totals</h3>
+                            <form action="#" method="get" accept-charset="utf-8">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Subtotal</td>
+                                            <td class="subtotal">$<%=totalPrice%></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Shipping</td>
+                                            <td class="btn-radio">
+                                                <div class="radio-info">
+                                                    <input type="radio" id="flat-rate" checked name="radio-flat-rate">
+                                                    <label for="flat-rate">Flat Rate: <span>$3.00</span></label>
+                                                </div>
+                                                <!-- <div class="radio-info">
+                                                    <input type="radio" id="free-shipping" name="radio-flat-rate">
+                                                    <label for="free-shipping">Free Shipping</label>
+                                                </div> -->
+                                                <!-- <div class="btn-shipping">
+                                                    <a href="#" title="">Calculate Shipping</a>
+                                                </div> -->
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td class="price-total">$<%=totalPrice + 3%></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="btn-cart-totals">
+                                    <a href="#" onclick="checkout()" class="checkout" title="">Proceed to Checkout</a>
+                                </div><!-- /.btn-cart-totals -->
+                            </form><!-- /form -->
+                        </div><!-- /.cart-totals -->
+                    </div><!-- /.col-lg-4 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </section><!-- /.flat-shop-cart -->
+        <footer id="footer">
+            <% include footer.html %>
+        </footer>
+
+        <a href="#top" id="scroll-top"><i class="fa fa-angle-up"></i></a>
+        <script src="/javascripts/jquery.min.js"></script>
+        <script src="/javascripts/jquery.migrate.js"></script>
+        <script src="/javascripts/bootstrap.min.js"></script>
+        <script src="/plugins/slick-nav/jquery.slicknav.min.js"></script>
+        <script src="/plugins/slick/slick.min.js"></script>
+        <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="/plugins/forms/jquery.form.min.js"></script>
+        <script src="/plugins/forms/jquery.validate.min.js"></script>
+        <script src="/plugins/modernizr/modernizr.custom.js"></script>
+        <script src="/plugins/wow/wow.min.js"></script>
+        <script src="/plugins/zoom/zoom.js"></script>
+        <script src="/plugins/mixitup/mixitup.min.js"></script>
+        <script src="/javascripts/theme.js"></script>
+        <script>
+            $(".btn-down").click(function() {
+                console.log(1);
+                var id = this.dataset.id;
+                var tmp = $("#" + id).val() - 1;
+                if(tmp >= 1) {
+                    data = {
+                        action: "change",
+                        furnitureId: id,
+                        num: tmp
+                    };
+                    $.ajax({
+                         url:'/cart',
+                         type:'post',
+                         data: data,
+                         success: function(data,status){
+                             if(status == 'success'){
+                                 //$("#" + _id).val(tmp);
+                                 location.href = 'cart';
+                             }
+                         },
+                         error: function(data,status){
+                             if(status == 'error'){
+                                alert("fail to add the item");
+                             }
+                         }
+                     });
+                }
+            });
+            $(".btn-up").click(function() {
+                var id = this.dataset.id;
+                var tmp = parseInt($("#" + id).val()) + 1;
+                data = {
+                    action: "change",
+                    furnitureId: id,
+                    num: tmp
+                };
+                $.ajax({
+                     url:'/cart',
+                     type:'post',
+                     data: data,
+                     success: function(data,status){
+                         if(status == 'success'){
+                             //$("#" + _id).val(tmp);
+                             location.href = 'cart';
+                         }
+                     },
+                     error: function(data,status){
+                         if(status == 'error'){
+                            alert("fail to sub the item");
+                         }
+                     }
+                 });
+            });
+            $(".delete").click(function() {
+                var id = this.dataset.id;
+                console.log(id);
+
+                data = {
+                    action: "delete",
+                    furnitureId: id
+                };
+                 $.ajax({
+                     url:'/cart',
+                     type:'post',
+                     data: data,
+                     success: function(data,status){
+                         if(status == 'success'){
+                             //$("#" + _id).val(tmp);
+                             location.href = 'cart';
+                         }
+                     },
+                     error: function(data,status){
+                         if(status == 'error'){
+                            alert("fail to delete the item");
+                         }
+                     }
+                 });
+            });
+            $(".logout").click(function() {      
+                 $.ajax({
+                     url:'/logout',
+                     type:'GET',
+                     success: function(data,status){
+                         if(status == 'success'){
+                             //$("#" + _id).val(tmp);
+                             location.href = '/';
+                         }
+                     },
+                     error: function(data,status){
+                         if(status == 'error'){
+                            alert("fail to logout");
+                         }
+                     }
+                 });
+            });
+            function checkout() {
+                // var r=confirm('Are you sure to make an order?');
+                // if(r==true) {
+                    location.href = 'checkout';
+                // }
+
+            }
+            
+        </script>
+    </body>
+</html>
+
+    

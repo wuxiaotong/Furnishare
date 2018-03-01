@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title><%= title %></title>
+        <link rel="icon" href="/images/logo_url.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/images/logo_url.ico" type="image/x-icon">
+        <link rel="stylesheet" href="stylesheets/bootstrap.min.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <link href="/plugins/wow/animate.css" rel="stylesheet">
+        <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+        <link href="/stylesheets/theme.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/responsive.css">
+    <style type="text/css">
+    .m15{ margin: 15px;}
+     .tc{ text-align: center;font-size: 18px;font-weight: 600;}
+    </style>
+</head>
+<body screen_capture_injected="true">
+    <header id="site-header">
+        <% include header.html %>
+    </header>
+   <section class="flat-account background">
+        <div class="container">
+            <div class="row" style="width:500px; margin: auto;">
+                    <div class="form-login">
+                        <div class="title">
+                            <h3>Register</h3>
+                        </div>
+                        <form action="#" method="get" id="form-login" accept-charset="utf-8">
+                            <div class="form-box">
+                                <label for="username">Username or email address * </label>
+                                <input type="text" class="form-control" id="username" name="username" 
+                            </div>
+                            <div class="form-box">
+                                <label for="password-login">Password * </label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="******" required>
+                            </div>
+                            <div class="form-box">
+                                <label for="password-login">Password Again* </label>
+                                <input type="password" class="form-control" id="password1" name="password1" placeholder="******" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit"  style="background:#f28b00;border:none;" class="btn btn-primary btn-block" id="register1">Register</button>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </section>
+    <footer id="footer">
+        <% include footer.html %>
+    </footer>
+    <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    $(function(){ 
+        $("#login1").click(function(){ 
+            location.href = 'login';
+        });
+        $("#register1").click(function(){ 
+            console.log(1);
+            var username = $("#username").val();
+            var password = $("#password").val();
+            var password1 = $("#password1").val();
+            if(password !== password1){ 
+                $("#password").css("border","1px solid red");
+                $("#password1").css("border","1px solid red");
+            }else if(password === password1){
+                console.log(2);
+            var data = {"uname":username,"upwd":password};
+            $.ajax({ 
+                url: '/register',
+                type: 'post',
+                data: data,
+                success: function(data,status){ 
+                    if(status == 'success'){
+                        alert("successfully registered");
+                        location.href = 'login';
+                    }
+                },
+                error: function(data,err){ 
+                        location.href = 'register';
+                }
+            }); 
+        }
+        });
+    });
+</script>
+</body>
+</head>
+</html>

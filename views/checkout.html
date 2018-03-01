@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>CheckOut</title>
+        <link rel="icon" href="/images/logo_url.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/images/logo_url.ico" type="image/x-icon">
+        <!-- Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Poppins:400,600" rel="stylesheet">
+
+
+        <!-- favicon and touch icons -->
+        <link rel="shortcut icon" href="/images/favicon.png" >
+
+        <!-- Bootstrap -->
+        <link href="/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/plugins/slick/slick.css" rel="stylesheet">
+        <link href="/plugins/slick-nav/slicknav.css" rel="stylesheet">
+        <link href="/plugins/wow/animate.css" rel="stylesheet">
+        <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+        <link href="/stylesheets/theme.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/responsive.css">
+        <link href="/stylesheets/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+        <link href="/stylesheets/explorer-fa/theme.css" rel="stylesheet">
+    </head>
+    <body class="">
+        <div id="page-loader">
+            <div class="loaders">
+                <img src="/images/loader/3.gif" alt="First Loader">
+                <img src="/images/loader/4.gif" alt="First Loader">
+            </div>
+        </div>
+        <header id="site-header">
+            <% include header.html %>
+        </header>
+         <div class="container">
+            <div class="row">
+                <div class="col-md-7" style="background:#fff">
+                    <div class="box-checkout">
+                        <form method="post" class="checkout" accept-charset="utf-8">
+                            <div class="billing-fields">
+                                <div class="fields-title">
+                                    <h3>Billing details</h3>
+                                    <span></span>
+                                    <div class="clearfix"></div>
+                                </div><!-- /.fields-title -->
+                                <div class="fields-content">
+                                    <div class="field-row">
+                                        <p class="field-one-half">
+                                            <label for="first-name">First Name *</label>
+                                            <input type="text" id="first-name" name="first-name" placeholder="Ali">
+                                        </p>
+                                        <p class="field-one-half">
+                                            <label for="last-name">Last Name *</label>
+                                            <input type="text" id="last-name" name="last-name" placeholder="Tufan">
+                                        </p>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="field-row">
+                                        <p class="field-one-half">
+                                            <label for="email-address">Email Address *</label>
+                                            <input type="email" id="email-address" name="email-address">
+                                        </p>
+                                        <p class="field-one-half">
+                                            <label for="phone">Phone *</label>
+                                            <input type="text" id="phone" name="phone">
+                                        </p>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="field-row">
+                                        <label for="address">Address *</label>
+                                        <input type="text" id="address" name="address" placeholder="Street address">
+                                        <!-- <input type="text" id="address-2" name="address" placeholder="Apartment, suite, unit etc. (optional)"> -->
+                                    </div>
+                                    <div class="field-row">
+                                        <label for="town-city">Town / City *</label>
+                                        <input type="text" id="town-city" name="town-city">
+                                    </div>
+                                    <div class="field-row">
+                                        <p class="field-one-half">
+                                            <label for="state-country">State / County *</label>
+                                            <input type="text" id="state-country" name="state-country">
+                                        </p>
+                                        <p class="field-one-half">
+                                            <label for="post-code">Postcode / ZIP *</label>
+                                            <input type="text" id="post-code" name="post-code">
+                                        </p>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div><!-- /.fields-content -->
+                            </div><!-- /.billing-fields -->
+                            <div class="form-group">
+                                <button type="button"  onclick="checkout()" style="margin-top:20px;" class="btn btn-primary btn-block" id="upload">Submit</button>
+                            </div>
+                        </form><!-- /.checkout -->
+                    </div><!-- /.box-checkout -->
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+            <% include footer.html %>
+        </footer>
+
+        <a href="#top" id="scroll-top"><i class="fa fa-angle-up"></i></a>
+        <script src="/javascripts/jquery.min.js"></script>
+        <script src="/javascripts/jquery.migrate.js"></script>
+        <script src="/javascripts/bootstrap.min.js"></script>
+        <script src="/plugins/slick-nav/jquery.slicknav.min.js"></script>
+        <script src="/plugins/slick/slick.min.js"></script>
+        <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="/plugins/forms/jquery.form.min.js"></script>
+        <script src="/plugins/forms/jquery.validate.min.js"></script>
+        <script src="/plugins/modernizr/modernizr.custom.js"></script>
+        <script src="/plugins/wow/wow.min.js"></script>
+        <script src="/plugins/zoom/zoom.js"></script>
+        <script src="/plugins/mixitup/mixitup.min.js"></script>
+        <script src="/javascripts/theme.js"></script>
+        <script>
+            $(".logout").click(function() {      
+                 $.ajax({
+                     url:'/logout',
+                     type:'GET',
+                     success: function(data,status){
+                         if(status == 'success'){
+                             //$("#" + _id).val(tmp);
+                             location.href = '/';
+                         }
+                     },
+                     error: function(data,status){
+                         if(status == 'error'){
+                            alert("fail to logout");
+                         }
+                     }
+                 });
+            });
+            function checkout() {
+                var data = {},
+                    date = new Date();
+                data.firstName = $("#first-name").val(),
+                data.lastName = $("#last-name").val(),
+                data.email = $("#email-address").val(),
+                data.phone = $("#phone").val(),
+                data.address = $("#address").val(),
+                data.city = $("#town-city").val(),
+                data.country = $("#state-country").val(),
+                data.postcode = $("#post-code").val();
+                data.createTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+                $.ajax({
+                 url:'/order',
+                 type:'post',
+                 data: data,
+                 success: function(data,status){
+                 if(status == 'success'){
+                     location.href = "order";
+                 }
+                 },
+                 error: function(data,status){
+                     if(status == 'error'){
+                       alert('fail to add to cart');
+                     }
+                 }
+                 });
+            }
+        </script>
+    </body>
+</html>
+
+    
